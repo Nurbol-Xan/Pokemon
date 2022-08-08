@@ -3,7 +3,7 @@ import "../CSS/PokemonThumnail.css";
 const PokemonThemnail = ({id, name, image, type}) => {
     return (
         <>
-            <div class="card">
+            <div className="card">
                 <img src={image} alt={name} className="img-card"/><br/>
                 <div className="card-title">
                     <small >#0{id}</small>

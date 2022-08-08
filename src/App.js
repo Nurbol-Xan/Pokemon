@@ -5,70 +5,100 @@ import Pagination from "./components/Pagination.js"
 import axios from "axios"
 
 function App() {
-  const [allPokemons, setAllPokemons] = useState([])
-  const [loadMore, setLoadmore] = useState("https://pokeapi.co/api/v2/pokemon?limit=2")
+  const [pokemon, setPokemon] = useState([])
+  const [currentPage, setCurrentPage] = useState("https://pokeapi.co/api/v2/pokemon?limit=1")
+  const [AllPokemon, setAllPokemon] = useState([])
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
   const [loading, setLoading] = useState(true)
-
-  const getAllPokemons = async () => {
-    const res = await fetch(loadMore)
-    const data = await res.json()
-
-    // setLoadmore(data.next)
-    setNextPage(data.next)
-    setPrevPage(data.previous)
-
-    function createPokemonObj(result){
-      result.forEach(async (pokemon) => {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-        const data = await res.json()
-
-        setAllPokemons(currentList => [...currentList, data])
-      })
-    }
-    createPokemonObj(data.results)
-  }
+  const [searchPoki, setSearchPoki] = useState("")
 
   useEffect(() => {
-    getAllPokemons()
-  }, []);
-  
+    setLoading(true)
+    let cansler;
+    axios.get(currentPage, {
+      cancelToken: new axios.CancelToken(c => cansler = c)
+    }).then(res => {
+      setLoading(false)
+      setNextPage(res.data.next)
+      setPrevPage(res.data.previous)
+      createPokemonObj(res.data.results)
 
-  // useEffect(() => {
-  //   setLoading(true)
-  //   let cansler;
-  //   axios.get(loadMore, {
-  //     cancelToken: new axios.CancelToken(c => cansler = c)
-  //   }).then(res => {
+      // AllPokemon.map((res) => {
+      //   console.log(res)
+      // })
+      function createPokemonObj(result){
+        result.forEach(async (pokemon) => {
+          const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+          const data = await res.json()
+        
+          // console.log(data)
+          setPokemon(currentList => [...currentList, data])
+        })
+      }
+    }).catch((e)=>console.log(e))
+    return () => cansler()
+  }, [currentPage])
+
+  // 
+  useEffect(() => {
+    axios.get("https://pokeapi.co/api/v2/pokemon?limit=1154")
+    .then(res => {
+      // console.log(res.data.results)
       
+      // console.log(AllPokemon)
+      createPokemonObj(res.data.results)
 
-  //     setLoading(false)
-  //     // setAllPokemons(res.data)
-  //     setNextPage(res.data.next)
-  //     setPrevPage(res.data.previous)
-  //   })
-
-  //   return () => cansler()
-  // }, [loadMore])
+      function createPokemonObj(result){
+        result.forEach(async (pokemon) => {
+          const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+          const data = await res.json()
+        
+          // console.log(data)
+          setAllPokemon(currentList => [...currentList, data])
+        })
+      }
+    // }).catch((e)=>console.log(e))
+    })
+  },[loading])
 
   function toNextPage(){
-    setLoadmore(nextPage)
+    setCurrentPage(nextPage)
   }
-
+  // console.log(pokemon)
+  // console.log(AllPokemon)
+  // AllPokemon.map((e) => console.log(e.name))
   function toPrevPage(){
-    setLoadmore(prevPage)
+    setCurrentPage(prevPage)
   }
-  // if (loading) return "Loading..."
-
+  if (loading) return "Loading..."
 
   return (
     <div className="app-container">
       <h1>Pokemon</h1>
+        <input 
+          type="text"
+          placeholder="Search..."
+          onChange={(even) => {
+            setSearchPoki(even.target.value)
+          }}
+        />
+    
+      
+
       <div className="pokemon-container">
         <main id="app">
-          <section class="cards">
-                {allPokemons.map((pokemon, index) => 
+          <section className="cards">
+            
+                {AllPokemon.filter((val) => {
+                  if (searchPoki == ""){
+                    console.log(val)
+                    return val
+                  }else if(val.name.toString().include(searchPoki.toLocaleLowerCase())){
+                    return val
+                  }
+                }).map((pokemon, index) => 
+              
                   <PokemonThemnail
                   id={pokemon.id}
                   name={pokemon.name}
@@ -77,7 +107,7 @@ function App() {
                   type={pokemon.types[0].type.name}
                   />
                 )}
-            </section>
+          </section>
         </main>
         <Pagination 
           toNextPage={nextPage ? toNextPage : null}
