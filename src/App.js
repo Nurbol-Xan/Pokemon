@@ -11,7 +11,7 @@ function App() {
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
   const [loading, setLoading] = useState(true)
-  const [searchPoki, setSearchPoki] = useState("")
+  const [searchPoki, setSearchPoki] = useState('')
 
   useEffect(() => {
     setLoading(true)
@@ -83,6 +83,14 @@ function App() {
             setSearchPoki(even.target.value)
           }}
         />
+        {/* AllPokemon.map((val) => {
+                  if (searchPoki == ""){
+                    console.log(val)
+                    return val
+                  }else if(searchPoki === val.name.toString()){
+                    return val
+                  }
+                }) */}
     
       
 
@@ -91,10 +99,11 @@ function App() {
           <section className="cards">
             
                 {AllPokemon.filter((val) => {
-                  if (searchPoki == ""){
-                    console.log(val)
+                  if (searchPoki === ""){
                     return val
-                  }else if(val.name.toString().include(searchPoki.toLocaleLowerCase())){
+                  }else if(
+                    val.name.toLowerCase().includes(searchPoki.toLocaleLowerCase())
+                  ){
                     return val
                   }
                 }).map((pokemon, index) => 
