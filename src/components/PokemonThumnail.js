@@ -6,7 +6,7 @@ const PokemonThemnail = ({id, name, image, type}) => {
             <div className="card">
                 <img src={image} alt={name} className="img-card"/><br/>
                 <div className="card-title">
-                    <small >#0{id}</small>
+                    <small>#{id}</small>
                     <h3 className="pokemon-name">{name}</h3>
                     <small>Type: {type}</small>
                 </div>
