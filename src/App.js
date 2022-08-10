@@ -3,27 +3,21 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  // Link,
+  Navigate
 } from "react-router-dom";
 import Pokemons from "./components/Pokemons.js"
+import Pokemon from "./components/AboutPoki.js"
 
 function App() {
-
-
-
   return (
     <>
       <Router>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/pokemon">Home</Link>
-                </li>
-              </ul>
-            </nav>
-          <Routes>
-            <Route path="/pokemon" element={<Pokemons />}/>
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Navigate to="/pokemon"/>} />
+          <Route path="/pokemon" element={<Pokemons />}/>
+          <Route path="/pokemon/:name" element={<Pokemon />} />
+        </Routes>
       </Router>
     </>
   );

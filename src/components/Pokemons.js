@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import PokemonThemnail from "./PokemonThumnail.js";
 import Pagination from "./Pagination.js"
 import axios from "axios"
-import SearchPokemon from "./SearchPokemon.js";
+// import SearchPokemon from "./SearchPokemon.js";
 
 export default function  About() {
   const [pokemon, setPokemon] = useState([])
@@ -11,6 +11,23 @@ export default function  About() {
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
   const [loading, setLoading] = useState(true)
+  const [AllPokemon, setAllPokemon] = useState([])
+  const [searchPoki, setSearchPoki] = useState('')
+
+  useEffect(() => {
+          axios.get("https://pokeapi.co/api/v2/pokemon?limit=1154")
+          .then(res => {
+            createPokemonObj(res.data.results)
+      
+            function createPokemonObj(result){
+              result.forEach(async (pokemon) => {
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+                const data = await res.json()
+                setAllPokemon(currentList => [...currentList, data])
+              })
+            }
+          })
+  },[])
 
   useEffect(() => {
     setLoading(true)
@@ -21,7 +38,7 @@ export default function  About() {
       setLoading(false)
       setNextPage(res.data.next)
       setPrevPage(res.data.previous)
-  
+      setPokemon([])
       function createPokemonObj(result){
         result.forEach(async (pokemon) => {
           const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
@@ -29,9 +46,9 @@ export default function  About() {
 
           setPokemon(currentList => [...currentList, data])
         })
-      }
+      };
+
       createPokemonObj(res.data.results)
-    
     })
    
     return () => cansler()
@@ -49,12 +66,23 @@ export default function  About() {
   return (
     <div className="app-container">
       <h1>Pokemon</h1>
-      <SearchPokemon />
+      <input 
+        type="text"
+        placeholder="Search..."
+        onChange={(even) => {
+        setSearchPoki(even.target.value)
+        }}
+      />
       <div className="pokemon-container">
         <main id="app">
+          
           <section className="cards">
-            {pokemon.map((pokemon, index) => {
-              // console.log(pokemon);
+            {/* eslint-disable-next-line */}
+          {searchPoki?(AllPokemon.filter((val) => {
+              if(searchPoki !== "" && val.name.toLowerCase().includes(searchPoki.toLocaleLowerCase())){
+                return val
+              }
+            }).map((pokemon, index) => 
               <PokemonThemnail
                 id={pokemon.id}
                 name={pokemon.name}
@@ -62,7 +90,17 @@ export default function  About() {
                 image={pokemon.sprites.other.dream_world.front_default}
                 type={pokemon.types[0].type.name}
               />
-            })}  
+            )):(
+              pokemon?.map((pokemon, index) => 
+              <PokemonThemnail
+                id={pokemon.id}
+                name={pokemon.name}
+                key={index}
+                image={pokemon.sprites.other.dream_world.front_default}
+                type={pokemon.types[0].type.name}
+              />
+            ) )}
+            
           </section>
         </main>
         <Pagination 

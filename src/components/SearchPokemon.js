@@ -3,7 +3,7 @@ import PokemonThemnail from "./PokemonThumnail";
 import axios from "axios"
 
 export default function SearchPokemon(){
-        const [currentPage] = useState("https://pokeapi.co/api/v2/pokemon?limit=1")
+        // const [currentPage] = useState("https://pokeapi.co/api/v2/pokemon?limit=1")
         const [AllPokemon, setAllPokemon] = useState([])
         const [searchPoki, setSearchPoki] = useState('')
 
@@ -20,7 +20,7 @@ export default function SearchPokemon(){
                     })
                   }
                 })
-        },[currentPage])
+        },[])
 
         return (
                 <>
@@ -31,7 +31,6 @@ export default function SearchPokemon(){
                                 setSearchPoki(even.target.value)
                                 }}
                         />
-
                         <main id="app">
                                 <section className="cards">
                                         {AllPokemon.filter((val) => {
