@@ -9,7 +9,7 @@ import {
 
 const PokemonThemnail = ({id, name, image, type}) => {
     return (
-        <>  <Link to={`/pokemon/${name}`}>
+        <>  <Link to={`/pokemon/${name}`} className="link">
                 <div className="card">
                     <img src={image} alt={name} className="img-card"/><br/>
                     <div className="card-title">

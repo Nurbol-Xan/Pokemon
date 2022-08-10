@@ -3,18 +3,133 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 100vh;
-        padding: 3rem 0.5rem;
+	margin:40px auto;
 }
 .pokemon-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin: 50px;
 }
 
 h1 {
+        position:absolute;
         color:aqua;
-        margin-bottom: 0.2rem;
+        left: 10%;
+        top: 0px;
+}
+.loading{
+	position:absolute;
+	color:aqua;
+	left: 45%;
+	top: 40%;
+	border-radius: 10px;
+}
+
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	padding: 10px;
+    
+}
+.search-wrapper {
+        position: absolute;
+	width: 500px;
+        left: 70%;
+        top: 15px;
+}
+.search-box {
+	width: 80%;
+	border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
+}
+.search-box:focus {
+	box-shadow: 0 0 15px 5px #b0e0ee;
+	border: 2px solid #bebede;
+}
+.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+/* .close-icon:after {
+	content: "X";
+	display: block;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	background-color: #FA9595;
+	z-index:1;
+	right: 35px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	padding: 2px;
+	border-radius: 50%;
+	text-align: center;
+	color: white;
+	font-weight: normal;
+	font-size: 12px;
+	box-shadow: 0 0 2px #E50F0F;
+	cursor: pointer;
+}
+.search-box:not(:valid) ~ .close-icon {
+	display: none;
+} */
+
+#container{
+	width:100%;
+}
+
+#slider{
+	padding:0;
+	border-radius:5px;
+}
+
+#prev, #next{
+	cursor:pointer;
+	z-index:100;
+	height:80px;
+	width:80px;
+	display:inline-block;
+	position:relative;
+	top:-500px;
+	margin:10;
+	padding:10;
+	filter: alpha(opacity=70);
+}
+
+#next{
+	float:right;
+	right:-350px;
+}
+
+#prev{
+	float:left;
+	right:350px;
+}
+
+.arrow-right {
+	border-top:40px solid transparent;
+	border-bottom: 40px solid transparent;	
+	border-left: 40px solid #fff;
+	position:relative;
+	top:20%;
+	right:-40%;
+}
+
+.arrow-left {
+	width: 0; 
+	height: 0; 
+	border-top: 40px solid transparent;
+	border-bottom: 40px solid transparent;	
+	border-right:40px solid #fff; 
+	position:relative;
+	top:20%;
+	left:30%;
 }
       
