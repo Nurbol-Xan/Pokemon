@@ -12,8 +12,10 @@ export default function  About(){
   const [AllPokemon, setAllPokemon] = useState([])
   const [searchPoki, setSearchPoki] = useState('')
   useEffect(() => {
+    setLoading(true)
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=1154")
     .then(res => {
+      setLoading(false)
       createPokemonObj(res.data.results)
       function createPokemonObj(result){
         result.forEach(async (pokemon) => {
@@ -51,6 +53,7 @@ export default function  About(){
   function toPrevPage(){
     setCurrentPage(prevPage)
   }
+  console.log(pokemon);
   if (loading) return <><div className="loading"><img src="http://a.top4top.net/p_1990j031.gif" alt="Loading"/></div></>
   return (
     <div className="app-container">
@@ -63,16 +66,19 @@ export default function  About(){
       </div>
       <div className="pokemon-container">	
       <div id="slider">
-				<div class="slide">
+				<div className="slide">
         <main id="app">
           <section className="cards">
             {/* eslint-disable-next-line */}
           {searchPoki?(AllPokemon.filter((val) => {
+            setLoading(true)
               if(searchPoki !== "" && val.name.toLowerCase().includes(searchPoki.toLocaleLowerCase())){
+                setLoading(false)
                 return val
               }
             }).map((pokemon, index) => 
               <PokemonThemnail
+                pokemon={pokemon}
                 id={pokemon.id}
                 name={pokemon.name}
                 key={index}
@@ -82,6 +88,7 @@ export default function  About(){
             )):(
               pokemon?.map((pokemon, index) => 
               <PokemonThemnail
+                pokemon={pokemon}
                 id={pokemon.id}
                 name={pokemon.name}
                 key={index}
