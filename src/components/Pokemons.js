@@ -53,7 +53,6 @@ export default function  About(){
   function toPrevPage(){
     setCurrentPage(prevPage)
   }
-  console.log(pokemon);
   if (loading) return <><div className="loading"><img src="http://a.top4top.net/p_1990j031.gif" alt="Loading"/></div></>
   return (
     <div className="app-container">
