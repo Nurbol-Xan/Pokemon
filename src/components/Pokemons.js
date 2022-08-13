@@ -46,10 +46,6 @@ export default function  About(){
     return () => cansler()
   }, [currentPage])
 
-  useEffect(()=>{
-    if(pokemon!=[]) console.log(pokemon)
-  },[pokemon])
-
   function toNextPage(){
     setCurrentPage(nextPage)
   }
