@@ -8,6 +8,7 @@ import {
 import Pokemon from "./AboutPoki.js"
 
 const PokemonThemnail = ({pokemon,id, name, image, type}) => {
+    // console.log(name)
     return (
         <>  <Link to={`/pokemon/${name}`} pokemon={pokemon} className="link">
                 <div className="card">
@@ -16,7 +17,11 @@ const PokemonThemnail = ({pokemon,id, name, image, type}) => {
                         <small>#{id}</small>
                         <h3 className="pokemon-name">{name}</h3>
                         <Pokemon pokemon={pokemon}/>
-                        <small>Type: {type}</small>
+                        <small>Type: {type.map((go) => 
+                            <>
+                                <small className="type">{go.type.name}</small><br />
+                            </>
+                        )}</small>
                     </div>
                 </div>  
             </Link>

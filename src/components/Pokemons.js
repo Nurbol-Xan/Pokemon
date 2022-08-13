@@ -12,10 +12,8 @@ export default function  About(){
   const [AllPokemon, setAllPokemon] = useState([])
   const [searchPoki, setSearchPoki] = useState('')
   useEffect(() => {
-    setLoading(true)
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=1154")
     .then(res => {
-      setLoading(false)
       createPokemonObj(res.data.results)
       function createPokemonObj(result){
         result.forEach(async (pokemon) => {
@@ -47,6 +45,11 @@ export default function  About(){
     })
     return () => cansler()
   }, [currentPage])
+
+  useEffect(()=>{
+    if(pokemon!=[]) console.log(pokemon)
+  },[pokemon])
+
   function toNextPage(){
     setCurrentPage(nextPage)
   }
@@ -70,29 +73,27 @@ export default function  About(){
           <section className="cards">
             {/* eslint-disable-next-line */}
           {searchPoki?(AllPokemon.filter((val) => {
-            setLoading(true)
               if(searchPoki !== "" && val.name.toLowerCase().includes(searchPoki.toLocaleLowerCase())){
-                setLoading(false)
                 return val
               }
-            }).map((pokemon, index) => 
+            }).map((pokemon) => 
               <PokemonThemnail
                 pokemon={pokemon}
                 id={pokemon.id}
                 name={pokemon.name}
-                key={index}
-                image={pokemon.sprites.other.dream_world.front_default}
-                type={pokemon.types[0].type.name}
+                key={pokemon.id}
+                image={pokemon.sprites.other.dream_world.front_default || pokemon.sprites.front_default}
+                type={pokemon.types}
               />
             )):(
-              pokemon?.map((pokemon, index) => 
+              pokemon?.map((pokemon) => 
               <PokemonThemnail
                 pokemon={pokemon}
                 id={pokemon.id}
                 name={pokemon.name}
-                key={index}
-                image={pokemon.sprites.other.dream_world.front_default}
-                type={pokemon.types[0].type.name}
+                key={pokemon.id}
+                image={pokemon.sprites.other.dream_world.front_default || pokemon.sprites.front_default}
+                type={pokemon.types}
               />
             ))}
           </section>

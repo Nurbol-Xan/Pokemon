@@ -1,0 +1,201 @@
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+  
+  .btn {
+  background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+  .btn span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btn:before,
+  .btn:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 0;
+    background: rgba(251,75,2,1);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btn:before{
+     height: 0%;
+     width: 2px;
+  }
+  .btn:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn:hover{
+    color: rgba(251,75,2,1);
+    background: transparent;
+  }
+  .btn:hover:before {
+    height: 100%;
+  }
+  .btn:hover:after {
+    width: 100%;
+  }
+  .btn span:before,
+  .btn span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background: rgba(251,75,2,1);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btn span:before {
+    width: 2px;
+    height: 0%;
+  }
+  .btn span:after {
+    height: 2px;
+    width: 0%;
+  }
+  .btn span:hover:before {
+    height: 100%;
+  }
+  .btn span:hover:after {
+    width: 100%;
+  }
+  
+  
+.info {
+    --color1: rgb(0, 255, 0);
+    --color2: rgb(0, 255, 191);
+    
+    width: 220%;
+    height: 70%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    box-shadow: -13px -13px 13px -15px var(--color1), 
+    13px 13px 13px -15px var(--color2), 
+    0 0 4px 2px rgba(255,255,255,0.5),
+    0 35px 25px -15px rgba(0, 0, 0, 0.3);
+    margin: 0 40%;
+    margin-top: 110px;
+    animation: holoCard 0s ease infinite;
+    overflow: hidden;
+    transform: translate3d(0,0,-1px); 
+    display: grid;
+    grid-template-columns: repeat(4, 2fr);
+    grid-auto-rows: minmax(0px, auto);
+}
+
+
+.img-info{
+    width: 100%;
+    height: 95%;
+    padding: 7px 10px;
+
+}
+
+.info-title{
+    text-align: left;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+}
+.type{
+    color:rgb(0, 255, 191);
+}
+
+.pokemon-name{
+    color:rgb(0, 231, 255);
+}
+
+.info:before,
+.info:after {
+    content: "";
+    opacity: .1;
+    mix-blend-mode: screen;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    
+}
+.info:before {
+    background-position: 50% 50%;
+    animation: holoGradient 15s ease infinite both;
+    background-image: linear-gradient(
+    115deg,
+    transparent 0%,
+    var(--color1) 30%,
+    transparent 47.5%,
+    transparent 52.5%,
+    var(--color2) 70%,
+    transparent 100%
+    );
+}
+.info:after {
+    opacity: 1;
+    background-image: url("https://assets.codepen.io/13471/sparkles.gif");
+    background-position: center;
+    background-size: 100%;
+    z-index: 2;
+    animation: holoSparkle 15s ease infinite both;
+    filter: brightness(1);
+    transition: filter 0.5s ease;
+}
+.link-n{
+    text-decoration: none;
+    position:absolute;
+    margin-top: 45px;
+    margin-left: 80%;
+}
+
+
+
+
+@keyframes holoCard {
+    0%, 100% {
+    transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
+    }
+    33% {
+    transform: rotateZ(-6deg) rotateX(-9deg) rotateY(10deg);
+    }
+    66% {
+    transform: rotateZ(6deg) rotateX(9deg) rotateY(-10deg);
+    }
+}
+
+.cards { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(60px, auto);
+}

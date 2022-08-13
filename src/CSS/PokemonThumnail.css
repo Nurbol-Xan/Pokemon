@@ -31,7 +31,9 @@
     margin: 0;
     color: #fff;
 }
-
+.type{
+    color:rgb(0, 255, 128);
+}
 .pokemon-name{
     color:rgb(0, 231, 255);
 }
